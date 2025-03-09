@@ -318,6 +318,18 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   );
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+
+      return function () {
+        document.title = "Popcorn";
+      };
+    },
+    [title]
+  );
+
   return (
     <div className="details">
       {isLoading ? (
@@ -325,7 +337,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       ) : (
         <>
           <header>
-            <button className="btn-back" onClick={handleAdd}>
+            <button className="btn-back" onClick={onCloseMovie}>
               &larr;
             </button>
             <img src={poster} alt={`Poster of ${movie}`} />
